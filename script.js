@@ -1,30 +1,33 @@
-const bigDiv = document.querySelector('.big-div');
+const cardsDiv = document.querySelector('.cards');
 
 let myLibrary = [
   {
     title: 'The Hobbit',
     author: 'J.R.R. Tolkien',
     year: '1937',
+    genre: 'Fantasy',
     status: 'read'
   },
   {
     title: 'The Martian',
     author: 'Andy Weir',
     year: '2011',
+    genre: 'Science Fiction',
     status: 'read'
   }
 ]
 
-function book(title, author, year, status) {
+function book(title, author, year, genre, status) {
   this.title = title;
   this.author = author;
   this.year = year;
+  this.genre = genre;
   this.status = status;
   }
 
 
-function addBookToLibrary(title, author, year, status) {
-  let newBook = new book(title, author, year, status);
+function addBookToLibrary(title, author, year, genre, status) {
+  let newBook = new book(title, author, year, genre, status);
   myLibrary.push(newBook);
 }
 
@@ -32,28 +35,30 @@ function render() {
   for (i=0; i < myLibrary.length; i++) {
     let card = document.createElement('div');
     card.classList.add('card');
-    bigDiv.appendChild(card);
+    cardsDiv.appendChild(card);
 
-    let cardTitle = document.createElement('div');
-    let cardAuthor = document.createElement('div');
-    let cardYear = document.createElement('div');
-    let cardStatus = document.createElement('div');
+    let cardImg = document.createElement('div');
+    cardImg.classList.add('card-image','waves-effect','waves-block','waves-light');
+    card.appendChild(cardImg);
 
-    cardTitle.classList.add('title');
-    cardAuthor.classList.add('author');
-    cardYear.classList.add('year');
-    cardStatus.classList.add('status');
+    let img = document.createElement('img');
+    img.classList.add('activator');
+    if (myLibrary[i].genre === 'Fantasy') {
+      img.src = 'images/fantasybook.png';
+    }
+    else if (myLibrary[i].genre === 'Science Fiction') {
+      img.src = 'images/scifi.jpg';
+    }
+    cardImg.appendChild(img);
 
+    let cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+    card.appendChild(cardContent);
+
+    let cardTitle = document.createElement('span');
+    cardTitle.classList.add('card-title','activator');
     cardTitle.innerHTML = myLibrary[i].title;
-    cardAuthor.innerHTML = myLibrary[i].author;
-    cardYear.innerHTML = myLibrary[i].year;
-    cardStatus.innerHTML = myLibrary[i].status;
-
-    card.appendChild(cardTitle);
-    card.appendChild(cardAuthor);
-    card.appendChild(cardYear);
-    card.appendChild(cardStatus);
-
+    cardContent.appendChild(cardTitle);
   }
 }
 
