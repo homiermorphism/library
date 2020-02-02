@@ -5,34 +5,47 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Satisfy&display=swap" rel="stylesheet">
+    <title>Library</title>
   </head>
   <body>
-    <div class="cards"> </div>
+    <h1>Sam's Library</h1>
 
-    <form class="form">
-      <fieldset>
-        <legend>Book Information:</legend>
-        Title:
-        <br>
-        <input type="text" name="title"></input>
-        <br>
-        Author:
-        <br>
-        <input type="text" name="author"></input>
-        <br>
-        Year:
-        <br>
-        <input type="text" name="year"></input>
-        <br>
-        Genre:
-        <br>
-        <input type="text" name="genre"></input>
-        <br>
-        Status:
-        <br>
-        <input type="text" name="status"></input>
-    </form>
+      <div class="form-bg"></div>
+        <div class="form">
+          <div class="form-title">Book Information</div>
+          <div class="input-field">
+            <input type="text" id="title"></input>
+            <label for="title">Title</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="author"></input>
+            <label for="author">Author</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="year"></input>
+            <label for="year">Year</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="genre"></input>
+            <label for="genre">Genre</label>
+          </div>
+          <div class="input-field">
+            <input type="text" id="status"></input>
+            <label for="status">Read/Unread</label>
+          </div>
+          <div class="form-buttons">
+            <button id="submit">Submit</button>
+            <button id="cancel">Cancel</button>
+          </div>
+        </div>
+
+    <div class="cards-header">
+      <button id="new-book">New Book</button>
+    </div>
+    <div class="cards">
+    </div>
+
 
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
