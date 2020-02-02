@@ -115,11 +115,16 @@ function render() {
 
       let cardTitle = document.createElement('span');
       cardTitle.classList.add('card-title');
-      cardTitle.innerHTML = myLibrary[i].title;
+      cardTitle.innerHTML = '<u>' + myLibrary[i].title + '</u>';
       cardContent.appendChild(cardTitle);
 
+      let cardAuthor = document.createElement('p');
+      cardAuthor.innerHTML = myLibrary[i].author;
+      cardAuthor.classList.add('card-author');
+      cardContent.appendChild(cardAuthor);
+
       let img = document.createElement('img');
-      img.classList.add('activator');
+      img.classList.add('activator', 'z-depth-4');
       if (myLibrary[i].title === 'The Hobbit') {
         img.src = 'images/hobbit.jpg';
       }
@@ -129,7 +134,7 @@ function render() {
       cardContent.appendChild(img);
 
       let cardInfo = document.createElement('p');
-      cardInfo.innerHTML = myLibrary[i].author + '<br>' + myLibrary[i].year +
+      cardInfo.innerHTML = myLibrary[i].year +
         '<br>' + myLibrary[i].genre + '<br>' + myLibrary[i].status;
       cardContent.appendChild(cardInfo);
 

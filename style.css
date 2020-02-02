@@ -3,33 +3,66 @@ body {
   text-align: center;
 }
 
+body::after {
+  content: "";
+  background: url('images/bgimage.jpg');
+  background-size: 100% auto;
+  opacity: 0.4;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
 h1 {
-font-family: 'Satisfy', cursive;
-display: flex;
-text-align: center;
-justify-content: center;
+  font-family: 'Satisfy', cursive;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.cards-header {
+  text-align: left;
+  margin: auto 10vw;
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 250px);
-  grid-gap: 20px;
+  grid-gap: 25px;
   position: absolute;
-  margin: 2vh 5vw 2vh 5vw;
+  margin: 2vh 8vw;
   overflow: auto;
   height: auto;
   max-height: 70vh;
   overflow-x: scroll;
   overflow-y: scroll;
   padding: 2%;
-  background-color: #fff8e1;
   border-radius: 10px;
-  width: 90vw;
+  width: 86vw;
   justify-content: center;
+  background-color:rgba(200, 200, 200, 0.5);
 }
 
 .card {
   position: relative;
+  background: radial-gradient(rgba(178,223,219,0.8), rgba(0,137,123,0.8));
+  overflow-y: scroll;
+}
+
+.card-title {
+  font-family: 'Satisfy', cursive;
+}
+
+.card-author {
+  font-family: 'Satisfy', cursive;
+}
+
+.card-content {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 120%;
 }
 
 
@@ -58,6 +91,7 @@ fieldset {
 }
 
 img {
+  margin: 10px;
   height: 150px;
   width: 90px;
 }
