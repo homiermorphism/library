@@ -71,7 +71,7 @@ formStatus.addEventListener('click', function(e) {
 });
 
 
-for (i=0; i < statusButtons.length - 1; i++) {
+for (i=0; i < statusButtons.length; i++) {
   statusButtons[i].addEventListener('click', switchStatus);
 }
 
@@ -192,13 +192,13 @@ function render() {
       else if (statusButton.value === 'unread') {
         statusButton.innerHTML = 'Unread';
       }
-      cardContent.appendChild(statusButton);
+      card.appendChild(statusButton);
 
       let delButton = document.createElement('a');
       delButton.classList.add('btn', 'del-btn');
       delButton.setAttribute('data-id', i);
       delButton.innerHTML = '<i class="material-icons">delete</i>';
-      cardContent.appendChild(delButton);
+      card.appendChild(delButton);
 
       loadedLibrary.push(myLibrary[i]);
     }
