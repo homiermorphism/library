@@ -4,13 +4,13 @@ const newBookForm = document.querySelector('.form');
 const newBookButton = document.getElementById('new-book');
 const cancelButton = document.getElementById('cancel');
 const submitButton = document.getElementById('submit');
+const formStatus = document.getElementById('form-status');
 
 const formBackground = document.querySelector('.form-bg');
 const formTitle = document.getElementById('title');
 const formAuthor = document.getElementById('author');
 const formYear = document.getElementById('year');
 const formGenre = document.getElementById('genre');
-const formStatus = document.getElementById('status');
 
 
 let loadedLibrary = [];
@@ -55,7 +55,9 @@ let myLibrary = [
 render();
 
 // need to load these after the cards have been rendered
-let delButtons = document.querySelectorAll('.del-btn');
+// used tagName because getting the elements by the class wasn't always
+// working
+let delButtons = document.getElementsByTagName('a');
 let statusButtons = document.querySelectorAll('.status-btn');
 
 
@@ -63,21 +65,20 @@ newBookButton.addEventListener('click', showForm);
 formBackground.addEventListener('click', hideForm);
 cancelButton.addEventListener('click', hideForm);
 submitButton.addEventListener('click', submit);
+formStatus.addEventListener('click', switchStatus);
+
 
 for (i=0; i < statusButtons.length - 1; i++) {
-  statusButtons[i].addEventListener('click', function(e) {
-    if (e.target.value === 'read') {
-      e.target.value = 'unread';
-      e.target.innerHTML = 'Unread';
-      e.target.classList.toggle('unread');
-      e.target.classList.toggle('read');
-    }
-    else if (e.target.value === 'unread') {
-      e.target.value = 'read';
-      e.target.innerHTML = 'Read';
-      e.target.classList.toggle('unread');
-      e.target.classList.toggle('read');
-    }
+  statusButtons[i].addEventListener('click', switchStatus);
+}
+
+for (i=0; i < delButtons.length; i++) {
+  delButtons[i].addEventListener('click', function(e) {
+    let id = Number(e.target.getAttribute('data-id'));
+    console.log(id);
+    console.log(myLibrary[i]);
+    console.log(myLibrary[id]);
+    myLibrary.splice(id - 1, 1);
   });
 }
 
@@ -119,17 +120,21 @@ function submit() {
   render();
 }
 
-function deleteCard(e) {
-  for (i=0; i < myLibrary.length; i++) {
-    if (e.target.getAttribute('data-id') === i) {
-      console.log('hi');
-    }
-  }
-}
 
 function newBookToLibrary(title, author, year, genre, status) {
   let newBook = new book(title, author, year, genre, status);
   myLibrary.push(newBook);
+}
+
+function switchStatus(e) {
+  if (e.target.value === 'read') {
+    e.target.value = 'unread';
+    e.target.innerHTML = 'Unread';
+  }
+  else if (e.target.value === 'unread') {
+    e.target.value = 'read';
+    e.target.innerHTML = 'Read';
+  }
 }
 
 function render() {
@@ -180,19 +185,17 @@ function render() {
       statusButton.value = myLibrary[i].status;
       if (statusButton.value === 'read') {
         statusButton.innerHTML = 'Read';
-        statusButton.classList.add('read');
       }
       else if (statusButton.value === 'unread') {
         statusButton.innerHTML = 'Unread';
-        statusButton.classList.add('unread');
       }
       cardContent.appendChild(statusButton);
 
       let delButton = document.createElement('a');
-      delButton.classList.add('btn-floating', 'del-btn');
+      delButton.classList.add('btn', 'del-btn');
       delButton.setAttribute('data-id', i);
       delButton.innerHTML = '<i class="material-icons">delete</i>';
-      card.appendChild(delButton);
+      cardContent.appendChild(delButton);
 
       loadedLibrary.push(myLibrary[i]);
     }

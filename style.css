@@ -24,14 +24,15 @@ h1 {
   color: #a13d2d;
 }
 
-#new-book {
-  background-color: #a13d2d;
+.btn {
+  background-color: #a13d2d !important;
   opacity: 0.9;
 }
 
-.form-btn {
-  background-color: #a13d2d !important;
+.del-btn {
+  margin: 10px;
 }
+
 
 .cards-header {
   text-align: left;
