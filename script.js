@@ -65,7 +65,10 @@ newBookButton.addEventListener('click', showForm);
 formBackground.addEventListener('click', hideForm);
 cancelButton.addEventListener('click', hideForm);
 submitButton.addEventListener('click', submit);
-formStatus.addEventListener('click', switchStatus);
+formStatus.addEventListener('click', function(e) {
+  console.log(e.target);
+  switchStatus(e);
+});
 
 
 for (i=0; i < statusButtons.length - 1; i++) {
@@ -114,7 +117,7 @@ function submit() {
   formAuthor.value = '';
   formYear.value = '';
   formGenre.value = '';
-  formStatus.value = '';
+  formStatus.value = 'read';
 
   hideForm();
   render();
