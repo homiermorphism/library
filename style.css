@@ -5,7 +5,7 @@ body {
 
 body::after {
   content: "";
-  background: url('images/bgimage.jpg');
+  background: url('images/bg-image.jpg');
   background-size: 100% auto;
   opacity: 0.4;
   top: 0;
@@ -21,6 +21,16 @@ h1 {
   display: flex;
   text-align: center;
   justify-content: center;
+  color: #a13d2d;
+}
+
+#new-book {
+  background-color: #a13d2d;
+  opacity: 0.9;
+}
+
+.form-btn {
+  background-color: #a13d2d !important;
 }
 
 .cards-header {
