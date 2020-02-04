@@ -30,11 +30,11 @@ h1 {
 }
 
 .del-btn {
-  margin: 10px;
+  margin: 0px 10px;
 }
 
 
-.cards-header {
+.header-buttons {
   text-align: left;
   margin: auto 10vw;
 }
@@ -59,7 +59,7 @@ h1 {
 
 .card {
   position: relative;
-  background: radial-gradient(rgba(178,223,219,0.8), rgba(0,137,123,0.8));
+  background: radial-gradient(#c8e6c9, #668866);
   overflow-y: scroll;
 }
 

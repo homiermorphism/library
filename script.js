@@ -1,5 +1,9 @@
 const cardsDiv = document.querySelector('.cards');
 const newBookForm = document.querySelector('.form');
+const titleFilter = document.getElementById('title-filter');
+const authorFilter = document.getElementById('author-filter');
+const genreFilter = document.getElementById('genre-filter');
+const yearFilter = document.getElementById('year-filter');
 
 const newBookButton = document.getElementById('new-book');
 const cancelButton = document.getElementById('cancel');
@@ -13,8 +17,8 @@ const formYear = document.getElementById('year');
 const formGenre = document.getElementById('genre');
 
 
-let loadedLibrary = [];
-let myLibrary = [
+var loadedLibrary = [];
+var myLibrary = [
   {
     title: 'The Hobbit',
     author: 'J.R.R. Tolkien',
@@ -54,14 +58,22 @@ let myLibrary = [
 
 render();
 
+
 // need to load these after the cards have been rendered
 // used tagName because getting the elements by the class wasn't always
 // working
-let delButtons = document.getElementsByTagName('a');
+let delButtons = document.querySelectorAll('.del-btn');
 let statusButtons = document.querySelectorAll('.status-btn');
 
 
 newBookButton.addEventListener('click', showForm);
+
+titleFilter.addEventListener('click', sortAtoZ);
+authorFilter.addEventListener('click', sortAtoZ);
+genreFilter.addEventListener('click', sortAtoZ);
+yearFilter.addEventListener('click', sortAtoZ);
+
+
 formBackground.addEventListener('click', hideForm);
 cancelButton.addEventListener('click', hideForm);
 submitButton.addEventListener('click', submit);
@@ -77,9 +89,8 @@ for (i=0; i < statusButtons.length; i++) {
 
 for (i=0; i < delButtons.length; i++) {
   delButtons[i].addEventListener('click', function(e) {
-    let id = Number(e.target.getAttribute('data-id'));
+    let id = Number(this.getAttribute('data-id'));
     console.log(id);
-    console.log(myLibrary[i]);
     console.log(myLibrary[id]);
     myLibrary.splice(id - 1, 1);
   });
@@ -91,6 +102,22 @@ function book(title, author, year, genre, status) {
   this.year = year;
   this.genre = genre;
   this.status = status;
+}
+
+function addBookToLibrary(title, author, year, genre, status) {
+  let newBook = new book(title, author, year, genre, status);
+  myLibrary.push(newBook);
+}
+
+function switchStatus(e) {
+  if (e.target.value === 'read') {
+    e.target.value = 'unread';
+    e.target.innerHTML = 'Unread';
+  }
+  else if (e.target.value === 'unread') {
+    e.target.value = 'read';
+    e.target.innerHTML = 'Read';
+  }
 }
 
 function showForm() {
@@ -111,7 +138,7 @@ function submit() {
   let year = formYear.value;
   let genre = formGenre.value;
   let status = formStatus.value;
-  newBookToLibrary(title, author, year, genre, status);
+  addBookToLibrary(title, author, year, genre, status);
 
   formTitle.value = '';
   formAuthor.value = '';
@@ -121,23 +148,6 @@ function submit() {
 
   hideForm();
   render();
-}
-
-
-function newBookToLibrary(title, author, year, genre, status) {
-  let newBook = new book(title, author, year, genre, status);
-  myLibrary.push(newBook);
-}
-
-function switchStatus(e) {
-  if (e.target.value === 'read') {
-    e.target.value = 'unread';
-    e.target.innerHTML = 'Unread';
-  }
-  else if (e.target.value === 'unread') {
-    e.target.value = 'read';
-    e.target.innerHTML = 'Read';
-  }
 }
 
 function render() {
@@ -166,7 +176,7 @@ function render() {
       cardContent.appendChild(cardAuthor);
 
       let img = document.createElement('img');
-      img.classList.add('activator', 'z-depth-3');
+      img.classList.add('z-depth-3');
       if (myLibrary[i].title === 'The Hobbit') {
         img.src = 'images/hobbit.jpg';
       }
@@ -194,7 +204,7 @@ function render() {
       }
       card.appendChild(statusButton);
 
-      let delButton = document.createElement('a');
+      let delButton = document.createElement('button');
       delButton.classList.add('btn', 'del-btn');
       delButton.setAttribute('data-id', i);
       delButton.innerHTML = '<i class="material-icons">delete</i>';
@@ -203,4 +213,53 @@ function render() {
       loadedLibrary.push(myLibrary[i]);
     }
   }
+}
+
+function addClass(element, classes) {
+  var elementClassArray = element.className.split(' ');
+  var classesArray = classes.split(' ');
+  for (i=0; i < classesArray.length; i++) {
+    if (elementClassArray.indexOf(classesArray[i]) === -1) {
+      element.className += ' ' + classesArray[i];
+    }
+  }
+}
+
+function removeClass(element, classes) {
+  var elementClassArray = element.className.split(' ');
+  var classesArray = classes.split(' ');
+  for (i=0; i < classesArray.length; i++) {
+    while (elementClassArray.indexOf(classesArray[i]) > -1) {
+      elementClassArray.splice(elementClassArray.indexOf(classesArray[i]), 1);
+    }
+  }
+  element.className = elementClassArray.join(' ');
+}
+
+
+function sortBy(field, reverse, primer) {
+    const key = primer ?
+      function(x) {
+        return primer(x[field])
+      } :
+      function(x) {
+        return x[field]
+      };
+
+    reverse = !reverse ? 1 : -1;
+
+    return function(a, b) {
+      return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+    }
+}
+
+
+function sortAtoZ(e) {
+  myLibrary.sort(sortBy(e.target.innerHTML, false));
+  let c = document.querySelectorAll('.card');
+  for (i=0; i < c.length; i++) {
+    c[i].remove();
+  }
+  loadedLibrary = [];
+  render();
 }
