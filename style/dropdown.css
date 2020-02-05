@@ -10,13 +10,9 @@
   position: relative;
   font-family: Arial;
   width: 170px;
-  margin-bottom: 10px;
+  margin: 0px 10px;
 }
 
 .dropdown-title {
-  width: 100%;
-}
-
-.dropdown-btn {
   width: 100%;
 }

@@ -1,7 +1,13 @@
 const dropdownMenus = document.querySelectorAll('.dropdown-menu');
 const titleDropdown = document.getElementById('title-dropdown');
+const authorDropdown = document.getElementById('author-dropdown');
+const yearDropdown = document.getElementById('year-dropdown');
+const genreDropdown = document.getElementById('genre-dropdown');
 
 titleDropdown.addEventListener('click', showDropdown);
+authorDropdown.addEventListener('click', showDropdown);
+yearDropdown.addEventListener('click', showDropdown);
+genreDropdown.addEventListener('click', showDropdown);
 
 function showDropdown(e) {
   let dropdownOptions = e.target.parentNode.getElementsByTagName('ul')[0];
@@ -10,18 +16,21 @@ function showDropdown(e) {
 }
 
 for (i=0; i < dropdownMenus.length; i++) {
-  let ul = dropdownMenus[i].querySelectorAll('ul')[0];
-  let li = ul.querySelectorAll('li');
-  for (j=0; j < li.length; j++) {
-    li[j].addEventListener('click', function(e) {
-      if (e.target.classList.contains('a-z')) {
-        sortAtoZ('title');
-      }
-      else if (e.target.classList.contains('z-a')) {
-        sortZtoA('title');
-      }
-      e.stopPropagation();
-    });
+  let ul = dropdownMenus[i].querySelectorAll('ul');
+  for (j=0; j < ul.length; j++) {
+    let li = ul[j].querySelectorAll('li');
+    let field = ul[j].previousElementSibling.innerHTML;
+    for (k=0; k < li.length; k++) {
+      li[k].addEventListener('click', function(e) {
+        if (e.target.classList.contains('a-z')) {
+          sortAtoZ(field);
+        }
+        else if (e.target.classList.contains('z-a')) {
+          sortZtoA(field);
+        }
+        e.stopPropagation();
+      });
+    }
   }
 }
 
