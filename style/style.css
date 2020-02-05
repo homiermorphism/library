@@ -1,0 +1,108 @@
+body {
+  justify-content: center;
+  text-align: center;
+}
+
+body::after {
+  content: "";
+  background: url('../images/bg-image.jpg');
+  background-size: 100% auto;
+  opacity: 0.4;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+h1 {
+  font-family: 'Satisfy', cursive;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  color: #a13d2d;
+}
+
+.btn {
+  background-color: #a13d2d !important;
+  margin: 0px 10px;
+}
+
+
+.header-options {
+  text-align: left;
+  margin: auto 10vw;
+  display: inline-flex;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  grid-gap: 25px;
+  position: absolute;
+  margin: 2vh 8vw;
+  overflow: auto;
+  height: auto;
+  max-height: 70vh;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  padding: 2%;
+  border-radius: 10px;
+  width: 86vw;
+  justify-content: center;
+  background-color:rgba(200, 200, 200, 0.5);
+}
+
+.card {
+  position: relative;
+  background: radial-gradient(#c8e6c9, #668866);
+  overflow-y: scroll;
+}
+
+.card-title {
+  font-family: 'Satisfy', cursive;
+}
+
+.card-author {
+  font-family: 'Satisfy', cursive;
+}
+
+.card-content {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 120%;
+}
+
+.form {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  top: 125px;
+  padding: 20px 50px 20px 50px;
+}
+
+.form-bg {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  top: 0;
+}
+
+#form-status {
+  margin: 10px;
+}
+
+fieldset {
+  border-radius: 4px;
+}
+
+img {
+  margin: 10px;
+  height: 150px;
+  width: 90px;
+}
