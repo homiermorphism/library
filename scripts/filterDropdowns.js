@@ -36,21 +36,11 @@ for (i=0; i < dropdownMenus.length; i++) {
 
 function sortAtoZ(field) {
   myLibrary.sort(sortBy(field, false));
-  let c = document.querySelectorAll('.card');
-  for (i=0; i < c.length; i++) {
-    c[i].remove();
-  }
-  loadedLibrary = [];
   render();
 }
 
 function sortZtoA(field) {
   myLibrary.sort(sortBy(field, true));
-  let c = document.querySelectorAll('.card');
-  for (i=0; i < c.length; i++) {
-    c[i].remove();
-  }
-  loadedLibrary = [];
   render();
 }
 
@@ -68,4 +58,8 @@ function sortBy(field, reverse, primer) {
     return function(a, b) {
       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
     }
+}
+
+function closeAllDropdowns(e) {
+  let openItems = document.querySelectorAll('.show-dropdown');
 }

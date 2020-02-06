@@ -45,18 +45,29 @@ render();
 // need to load these after the cards have been rendered
 let delButtons = document.querySelectorAll('.del-btn');
 let statusButtons = document.querySelectorAll('.status-btn');
+let editButtons = document.querySelectorAll('.edit-btn');
 
 
 for (i=0; i < statusButtons.length; i++) {
   statusButtons[i].addEventListener('click', switchStatus);
 }
 
+
+for (i=0; i < editButtons.length; i++) {
+  editButtons[i].addEventListener('click', function(e) {
+    for (j=0; j < myLibrary.length; j++) {
+      if (i === j) {
+
+      }
+    }
+  });
+}
+
 for (i=0; i < delButtons.length; i++) {
   delButtons[i].addEventListener('click', function(e) {
-    let id = Number(this.getAttribute('data-id'));
-    console.log(id);
-    console.log(myLibrary[id]);
-    myLibrary.splice(id - 1, 1);
+    id = e.target.getAttribute('data-id');
+    myLibrary.splice(id, 1);
+    render();
   });
 }
 
@@ -85,6 +96,13 @@ function switchStatus(e) {
 }
 
 function render() {
+  // remove existing cards if calling the render function again
+  let c = document.querySelectorAll('.card');
+  for (i=0; i < c.length; i++) {
+    c[i].remove();
+  }
+  loadedLibrary = [];
+
   for (i=0; i < myLibrary.length; i++) {
     if (loadedLibrary.includes(myLibrary[i])) {
       continue;
@@ -92,7 +110,6 @@ function render() {
     else {
       let card = document.createElement('div');
       card.classList.add('card', 'medium');
-      card.setAttribute('data-id', i);
       cardsDiv.appendChild(card);
 
       let cardContent = document.createElement('div');
@@ -130,18 +147,18 @@ function render() {
       let statusButton = document.createElement('button');
       statusButton.classList.add('btn', 'status-btn');
       statusButton.value = myLibrary[i].status;
-      if (statusButton.value === 'read') {
-        statusButton.innerHTML = 'Read';
-      }
-      else if (statusButton.value === 'unread') {
-        statusButton.innerHTML = 'Unread';
-      }
+      statusButton.innerHTML = myLibrary[i].status;
       card.appendChild(statusButton);
 
-      let delButton = document.createElement('button');
-      delButton.classList.add('btn', 'del-btn');
+      let editButton = document.createElement('button');
+      editButton.classList.add('btn', 'edit-btn');
+      editButton.innerHTML = 'edit';
+      card.appendChild(editButton);
+
+      let delButton = document.createElement('i');
+      delButton.classList.add('btn', 'del-btn', 'material-icons');
       delButton.setAttribute('data-id', i);
-      delButton.innerHTML = '<i class="material-icons">delete</i>';
+      delButton.innerHTML = 'delete';
       card.appendChild(delButton);
 
       loadedLibrary.push(myLibrary[i]);
