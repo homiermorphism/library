@@ -1,4 +1,7 @@
 const cardsDiv = document.querySelector('.cards');
+var delButtons = [];
+var statusButtons = [];
+var editButtons = [];
 
 var loadedLibrary = [];
 var myLibrary = [
@@ -43,33 +46,7 @@ render();
 
 
 // need to load these after the cards have been rendered
-let delButtons = document.querySelectorAll('.del-btn');
-let statusButtons = document.querySelectorAll('.status-btn');
-let editButtons = document.querySelectorAll('.edit-btn');
 
-
-for (i=0; i < statusButtons.length; i++) {
-  statusButtons[i].addEventListener('click', switchStatus);
-}
-
-
-for (i=0; i < editButtons.length; i++) {
-  editButtons[i].addEventListener('click', function(e) {
-    for (j=0; j < myLibrary.length; j++) {
-      if (i === j) {
-
-      }
-    }
-  });
-}
-
-for (i=0; i < delButtons.length; i++) {
-  delButtons[i].addEventListener('click', function(e) {
-    id = e.target.getAttribute('data-id');
-    myLibrary.splice(id, 1);
-    render();
-  });
-}
 
 function book(title, author, year, genre, status) {
   this.title = title;
@@ -162,6 +139,9 @@ function render() {
       card.appendChild(delButton);
 
       loadedLibrary.push(myLibrary[i]);
+      delButtons = document.querySelectorAll('.del-btn');
+      statusButtons = document.querySelectorAll('.status-btn');
+      editButtons = document.querySelectorAll('.edit-btn');
     }
   }
 }
@@ -211,4 +191,20 @@ function sortBy(field, reverse, primer) {
     return function(a, b) {
       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
     }
+}
+
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('del-btn')) delBook(e);
+  if (e.target.classList.contains('status-btn')) switchStatus(e);
+});
+
+function delBook(e) {
+  let id = e.target.getAttribute('data-id');
+  myLibrary.splice(id, 1);
+  let cardsDiv = document.querySelectorAll('.cards')[0];
+  let cards = document.querySelectorAll('.card');
+  for (j=0; j < cards.length; j++) {
+    cardsDiv.removeChild(cards[j]);
+  }
+  render();
 }
