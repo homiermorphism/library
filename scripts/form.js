@@ -2,18 +2,23 @@ const newBookButton = document.getElementById('new-book');
 const newBookForm = document.querySelector('.form');
 const cancelButton = document.getElementById('cancel');
 const submitButton = document.getElementById('submit');
-const formStatus = document.getElementById('form-status');
 const formBackground = document.querySelector('.form-bg');
 const formTitle = document.getElementById('form-title');
 const formAuthor = document.getElementById('form-author');
 const formYear = document.getElementById('form-year');
 const formGenre = document.getElementById('form-genre');
+const formStatus = document.getElementById('form-status');
 
 newBookButton.addEventListener('click', showForm);
 formBackground.addEventListener('click', hideForm);
 cancelButton.addEventListener('click', hideForm);
 submitButton.addEventListener('click', submit);
 formStatus.addEventListener('click', switchStatus);
+
+for (i=0; i < formStatus.length; i++) {
+  if (formStatus[i].checked)
+    switchStatus(e);
+}
 
 function resetForm() {
   formTitle.value = '';
